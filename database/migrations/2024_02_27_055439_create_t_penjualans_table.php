@@ -16,10 +16,12 @@ return new class extends Migration
             $table->unsignedBigInteger('user_id')->index();
             $table->string('pembeli', 50);
             $table->string('penjualan_kode', 20);
+            $table->dateTime('penjualan_tanggal');
             $table->timestamps();
 
             $table->foreign('user_id')->references('user_id')->on('m_users');
         });
+
     }
 
     /**
@@ -29,4 +31,5 @@ return new class extends Migration
     {
         Schema::dropIfExists('t_penjualans');
     }
+
 };

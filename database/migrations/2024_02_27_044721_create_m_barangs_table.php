@@ -23,7 +23,7 @@ return new class extends Migration
             $table->foreign('kategori_id')->references('kategori_id')->on('m_kategoris');
         });
     }
-
+ 
     /**
      * Reverse the migrations.
      */

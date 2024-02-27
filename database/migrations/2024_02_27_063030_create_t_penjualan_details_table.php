@@ -22,7 +22,7 @@ return new class extends Migration
             $table->foreign('penjualan_id')->references('penjualan_id')->on('t_penjualans');
             $table->foreign('barang_id')->references('barang_id')->on('m_barangs');
         });
-    }
+    } 
 
     /**
      * Reverse the migrations.
