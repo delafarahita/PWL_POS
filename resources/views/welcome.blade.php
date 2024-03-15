@@ -132,29 +132,23 @@
     </body>
 </html> --}}
 
-@extends('layouts.app')
+@extends('adminlte::page')
 
-{{-- Customize layout sections --}}
+@section('title', 'Dashboard')
 
-@section('subtitle', 'Welcome')
-@section('sontent_header_title', 'Home')
-@section('sontent_header_subtitle', 'Welcome')
+@section('content_header')
+    <h1>Dashboard</h1>
+@stop
 
-{{-- Content body: main page content --}}
-
-@section('content_body')
+@section('content')
     <p>Welcome to this beautiful admin panel.</p>
 @stop
 
-{{-- Push extra CSS --}}
-
-@push('css')
+@section('css')
     {{-- Add here extra stylesheets --}}
     {{-- <link rel="stylesheet" href="/css/admin_custom.css"> --}}
-@endpush
+@stop
 
-{{-- Push extra scripts --}}
-
-@push('js')
+@section('js')
     <script> console.log("Hi, I'm using the Laravel-AdminLTE package!"); </script>
-@endpush
+@stop
