@@ -35,3 +35,7 @@ Route::post('user/tambah_simpan/', [UserController::class, 'tambah_simpan'])->na
 Route::put('user/ubah_simpan/{id}', [UserController::class, 'ubah_simpan'])->name('/user/ubah_simpan');
 
 Route::get('/kategori', [KategoriController::class, 'index']);
+
+Route::get('/kategori/create', [KategoriController::class, 'create']);
+Route::post('/kategori', [KategoriController::class, 'store']);
+
