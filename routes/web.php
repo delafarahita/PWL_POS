@@ -3,6 +3,7 @@
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\POSController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -46,3 +47,4 @@ Route::put('/kategori/edit_simpan/{id}', [KategoriController::class, 'edit_simpa
 
 Route::get('/kategori/hapus/{id}', [KategoriController::class, 'hapus'])->name('kategori.hapus');
 
+Route::resource('m_user', POSController::class);
