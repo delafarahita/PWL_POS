@@ -322,11 +322,17 @@ return [
             'label' => 4,
             'label_color' => 'success',
         ],
-        ['header' => 'manage_kategori'],
+        ['header' => 'MANAGE KATEGORI'],
         [
             'text' => 'Manage Kategori',
             'url'  => 'kategori',
             'icon' => 'fas fa-fw fa-list',
+        ],
+        ['header' => 'MANAGE USER'],
+        [
+            'text' => 'CRUD User',
+            'url' => 'm_user',
+            'icon' => 'fas fa-fw fa-user',
         ],
         ['header' => 'account_settings'],
         [

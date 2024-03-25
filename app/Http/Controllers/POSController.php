@@ -33,12 +33,13 @@ class POSController extends Controller
             'user_id' => 'max 20',
             'username' => 'required',
             'nama' => 'required',
+            'level_id' => 'required|exists:m_levels,level_id',
         ]);
         // Menambahkan nilai default untuk level_id
-        $requestData = $request->all();
-        $requestData['level_id'] = 1; // Mengasumsikan 1 adalah ID level default
+        // $requestData = $request->all();
+        // $requestData['level_id'] = 1; // Mengasumsikan 1 adalah ID level default
         //fungsi eloquent untuk menambah data
-        m_user::create($requestData);
+        m_user::create($request->all());
         return redirect()->route('m_user.index')
             ->with('success', 'user Berhasil Ditambahkan');
     }
