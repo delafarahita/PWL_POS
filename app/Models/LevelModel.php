@@ -16,4 +16,9 @@ class LevelModel extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    public function level()
+    {
+        return $this->belongsTo(LevelModel::class, 'parent_level_id'); // Sesuaikan dengan nama kolom yang sesuai
+    }
 }
