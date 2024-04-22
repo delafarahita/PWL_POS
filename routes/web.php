@@ -8,6 +8,9 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\BarangController;
 use App\Http\Controllers\StokController;
 use App\Http\Controllers\PenjualanController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\AdminController;
+use App\Http\Controllers\ManagerController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -56,7 +59,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [WelcomeController::class, 'index']);
 
-Route::group(['prefix' => 'user'], function(){
+Route::group(['prefix' => 'user'], function () {
     Route::get('/', [UserController::class, 'index']);            // menampilkan halaman awal user
     Route::post('/list', [UserController::class, 'list']);        // menampilkan data user dalam bentuk json untuk datatables
     Route::get('/create', [UserController::class, 'create']);     // menampilkan halaman form tambah user
@@ -67,7 +70,7 @@ Route::group(['prefix' => 'user'], function(){
     Route::delete('/{id}', [UserController::class, 'destroy']);   // menghapus data user
 });
 
-Route::group(['prefix' => 'level'], function(){
+Route::group(['prefix' => 'level'], function () {
     Route::get('/', [LevelController::class, 'index']);            // menampilkan halaman awal level
     Route::post('/list', [LevelController::class, 'list']);        // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [LevelController::class, 'create']);     // menampilkan halaman form tambah level
@@ -78,7 +81,7 @@ Route::group(['prefix' => 'level'], function(){
     Route::delete('/{id}', [LevelController::class, 'destroy']);   // menghapus data level
 });
 
-Route::group(['prefix' => 'kategori'], function(){
+Route::group(['prefix' => 'kategori'], function () {
     Route::get('/', [KategoriController::class, 'index']);            // menampilkan halaman awal level
     Route::post('/list', [KategoriController::class, 'list']);        // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [KategoriController::class, 'create']);     // menampilkan halaman form tambah level
@@ -89,7 +92,7 @@ Route::group(['prefix' => 'kategori'], function(){
     Route::delete('/{id}', [KategoriController::class, 'destroy']);   // menghapus data level
 });
 
-Route::group(['prefix' => 'barang'], function(){
+Route::group(['prefix' => 'barang'], function () {
     Route::get('/', [BarangController::class, 'index']);            // menampilkan halaman awal level
     Route::post('/list', [BarangController::class, 'list']);        // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [BarangController::class, 'create']);     // menampilkan halaman form tambah level
@@ -100,7 +103,7 @@ Route::group(['prefix' => 'barang'], function(){
     Route::delete('/{id}', [BarangController::class, 'destroy']);   // menghapus data level
 });
 
-Route::group(['prefix' => 'stok'], function(){
+Route::group(['prefix' => 'stok'], function () {
     Route::get('/', [StokController::class, 'index']);            // menampilkan halaman awal level
     Route::post('/list', [StokController::class, 'list']);       // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [StokController::class, 'create']);     // menampilkan halaman form tambah level
@@ -111,7 +114,7 @@ Route::group(['prefix' => 'stok'], function(){
     Route::delete('/{id}', [StokController::class, 'destroy']);   // menghapus data level
 });
 
-Route::group(['prefix' => 'penjualan'], function(){
+Route::group(['prefix' => 'penjualan'], function () {
     Route::get('/', [PenjualanController::class, 'index']);            // menampilkan halaman awal level
     Route::post('/list', [PenjualanController::class, 'list']);        // menampilkan data level dalam bentuk json untuk datatables
     Route::get('/create', [PenjualanController::class, 'create']);     // menampilkan halaman form tambah level
@@ -120,4 +123,24 @@ Route::group(['prefix' => 'penjualan'], function(){
     Route::get('/{id}/edit', [PenjualanController::class, 'edit']);    // menampilkan halaman form edit level
     Route::put('/{id}', [PenjualanController::class, 'update']);       // menyimpan perubahan data level
     Route::delete('/{id}', [PenjualanController::class, 'destroy']);   // menghapus data level
+});
+
+Route::get('login', [AuthController::class, 'index'])->name('login');
+Route::get('register', [AuthController::class, 'register'])->name('register');
+Route::post('proses_login', [AuthController::class, 'proses_login'])->name('proses_login');
+Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+Route::post('proses_register', [AuthController::class, 'proses_register'])->name('proses_register');
+
+// kita atur juga untuk middleware menggunakan group pada routing
+// didalamnya terdapat group untuk mengecek kondisi login
+// jika user yang login merupakan admin makan akan diarahkan ke AdminController
+// jika user yang login merupakan manager maka akan diarahkan ke UserController
+Route::group(['middleware' => ['auth']], function(){
+    Route::group(['middleware' => ['cek_login:1']], function () {
+        Route::resource('admin', AdminController::class);
+    });
+
+    Route::group(['middleware' => ['cek_login:2']], function () {
+        Route::resource('manager', ManagerController::class);
+    });
 });
